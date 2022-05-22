@@ -1,0 +1,80 @@
+﻿
+@model WebAppRSWEB.ViewModel.CourseTitle
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Course[0].Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Course[0].Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Course[0].Credits)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Course[0].Credits)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Course[0].Semester)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Course[0].Semester)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Course[0].Programme)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Course[0].Programme)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Course[0].EducationLevel)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Course[0].EducationLevel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Course[0].FirstTeacher)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.FirstTeacherId != null)
+            {
+                <a asp-controller="Teachers" asp-action="Details" asp-route-id="@Model.FirstTeacherId">@Html.DisplayFor(model => model.FirstTeacher.FirstName)</a>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Course[0].SecondTeacher)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.SecondTeacherId != null)
+            {
+                <a asp-controller="Teachers" asp-action="Details" asp-route-id="@Model.SecondTeacherId">@Html.DisplayFor(model => model.SecondTeacher.FirstName)</a>
+            }
+        </dd>
+ <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Students)
+        </dt>
+        <dd class = "col-sm-10">
+           @foreach(var studenti in Model.Students)
+                    {
+                        <a asp-controller="Students" asp-action="Details" asp-route-id="@studenti.studentId">
+                            @studenti.student.FullName
+                        </a>
+                        <br/>
+                    }
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        { <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> } |
+    <a asp-action="Index">Back to List</a>
+</div>
